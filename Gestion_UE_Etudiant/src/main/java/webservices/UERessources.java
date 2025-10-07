@@ -32,4 +32,55 @@ public class UERessources
         else
             return Response.status(409).entity("Already exists!").build();
     }
+
+    @Path("/list")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    //getAllUEs
+    public Response getAllUe(){
+        return Response
+                .status(200)
+                .entity(this.helper.getListeUE())
+                .build();
+    }
+
+    //add object
+    public Response addUe(UniteEnseignement ue){
+        if(this.helper.addUniteEnseignement(ue)){
+            return Response.status(201)
+                    .entity("Added Done :D")
+                    .build();
+        }
+        return Response.status(409)//208
+                .entity("Already exist")
+                .build();
+
+    }
+
+    //delete
+    @Path("/delete/{code}")
+    @DELETE
+    @Produces(MediaType.TEXT_PLAIN)
+    public Response deleteUE(@PathParam("code")int code){
+        if(this.helper.deleteUniteEnseignement(code)){
+            return Response
+                    .status(200)
+                    .entity("deleted Done :D")
+                    .build();
+        }
+        return Response
+                .status(404)
+                .entity("not found")
+                .build();
+    }
+    //search by code
+    @Path("/search")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response search(@QueryParam(value = "s")int semestre){
+        return Response
+                .status(200)
+                .entity(this.helper.getUEBySemestre(semestre))
+                .build();
+    }
 }
