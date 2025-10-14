@@ -1,0 +1,39 @@
+type UniteEnseignement {
+    code: Int
+    domaine: String
+    responsable: String
+    credits: Int
+    semestre: Int
+}
+type QueryResolver {
+    allUEs: [UniteEnseignement]
+    getUEByCode(code: Int!): UniteEnseignement
+    getUEsByDomaine(domaine: String!): [UniteEnseignement]
+    getUEsBySemestre(semestre: Int!): [UniteEnseignement]
+}
+
+
+type MutationResolver {
+    addUniteEnseignement(
+        code: Int!
+        domaine: String!
+        responsable: String!
+        credits: Int!
+        semestre: Int!
+    ): Boolean
+
+    updateUniteEnseignement(
+            code: Int!
+            domaine: String!
+            responsable: String!
+            credits: Int!
+            semestre: Int!
+        ): Boolean
+
+    deleteUniteEnseignement(code: Int!): Boolean
+
+}
+schema {
+    query: QueryResolver
+    mutation: MutationResolver
+}
